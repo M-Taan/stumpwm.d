@@ -5,4 +5,4 @@
 (stumpwm:add-screen-mode-line-formatter #\B 'fmt-battery)
 
 (defun fmt-battery (ml)
-  (format nil "~4D %" (get-battery-capacity)))
+  (format nil "~D %" (get-battery-capacity)))

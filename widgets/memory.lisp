@@ -18,4 +18,4 @@
 (stumpwm:add-screen-mode-line-formatter #\M 'fmt-mem)
 
 (defun fmt-mem (ml)
-  (format nil "~4D MB" (get-used-memory)))
+  (format nil "~D MB" (get-used-memory)))

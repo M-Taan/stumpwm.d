@@ -27,6 +27,7 @@
       *mode-line-timeout* 2
       *screen-mode-line-format* (list "%g" "^>" "%M" " | "  "%B"  " | " "%d"))
 
-(toggle-mode-line (current-screen) (current-head))
+(dolist (head (screen-heads (current-screen)))
+  (enable-mode-line (current-screen) head t *screen-mode-line-format*))
 
 (set-font "-*-terminal-medium-r-*-*-*-*-*-*-*-iso8859-*")
