@@ -19,27 +19,13 @@
 (gnewbg "[SLACK]")
 
 ;;; Modeline
+(load (concat (getenv "HOME") "/.stumpwm.d/widgets/memory.lisp"))
+(load (concat (getenv "HOME") "/.stumpwm.d/widgets/battery.lisp"))
 
-;; Battery
-;; This's just to get things going for now
-;; Need to handle this better
-;; It's either create your own batter module
-;; Or use the already available battery module (battery-portable)
-(defun get-battery-capacity ()
-  (with-open-file (stream "/sys/class/power_supply/BAT0/capacity")
-    (read-line stream)))
-
-;; Memory
-(defun read-memory-information ()
-  (with-open-file (stream "/proc/meminfo")
-    (loop for line = (read-line stream nil)
-          while line
-          collect line)))
-
-(setf *time-modeline-string* "%a %b %e%l:%M %p"
+(setf *time-modeline-string* "%a %b %e %l:%M %p"
       *mode-line-pad-y* 4
       *mode-line-timeout* 2
-      *screen-mode-line-format* (list "%g" "^>"'(:eval (get-battery-capacity)) "%" " | " "%d"))
+      *screen-mode-line-format* (list "%g" "^>" "%M" " | "  "%B"  " | " "%d"))
 
 (toggle-mode-line (current-screen) (current-head))
 
