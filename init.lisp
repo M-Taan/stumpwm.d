@@ -1,9 +1,7 @@
 (in-package :stumpwm)
 
-;; Setting default prefix
+;;; Defaults
 (set-prefix-key (kbd "C-z"))
-
-;; defaults
 (setf *startup-message* nil)
 
 ;;; Groups
@@ -21,12 +19,12 @@
 (gnewbg "[MISC]")
 (gnewbg "[SLACK]")
 
-;; Startup
+;;; Startup
 (run-shell-command "/usr/local/bin/emacs --daemon")
 (run-shell-command "nitrogen --restore")
 (run-shell-command "dunst")
 
-;; Binding
+;;; Binding
 ;; Window classes are set by Xorg, you can get the window class through: (window-class window)
 ;; or through xorg's: xprop WM_CLASS
 (defcommand emacsclient () ()
@@ -38,10 +36,28 @@
 (setf *applications-keymap*
       (let ((m (make-sparse-keymap)))
         (define-key m (kbd "b") "firefox")
+        (define-key m (kbd "a") "exec pavucontrol")
         m))
 
 (define-key *root-map* (kbd "a") '*applications-keymap*)
 (define-key *root-map* (kbd "e") "emacsclient")
+(define-key *root-map* (kbd "c") "exec alacritty")
+
+;; Top level mappings
+(define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec amixer -D pulse sset Master 5%+")
+(define-key *top-map* (kbd "XF86AudioLowerVolume") "exec amixer -D pulse sset Master 5%-")
+(define-key *top-map* (kbd "XF86AudioPlay") "exec playerctl --all-players play")
+(define-key *top-map* (kbd "XF86AudioPause") "exec playerctl --all-players pause")
+(define-key *top-map* (kbd "XF86AudioNext") "exec playerctl --all-players next")
+(define-key *top-map* (kbd "XF86AudioPrev") "exec playerctl --all-players previous")
+(define-key *top-map* (kbd "XF86MonBrightnessUp") "exec light -A 10")
+(define-key *top-map* (kbd "XF86MonBrightnessDown") "exec light -U 10")
+(define-key *top-map* (kbd "Print") "exec screenshot")
+
+
+;; undefine keys
+(undefine-key *root-map* (kbd "C-e"))
+(undefine-key *root-map* (kbd "C-c"))
 
 ;;; Modeline
 (load (concat (getenv "HOME") "/.stumpwm.d/widgets/memory.lisp"))
