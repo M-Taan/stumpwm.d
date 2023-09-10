@@ -3,6 +3,8 @@
 ;;; Defaults
 (set-prefix-key (kbd "C-z"))
 (setf *startup-message* nil)
+;; Mainly due to emacs's resize hints
+(setf *ignore-wm-inc-hints* t)
 
 ;;; Groups
 
@@ -60,8 +62,8 @@
 (undefine-key *root-map* (kbd "C-c"))
 
 ;;; Modeline
-(load (concat (getenv "HOME") "/.stumpwm.d/widgets/memory.lisp"))
-(load (concat (getenv "HOME") "/.stumpwm.d/widgets/battery.lisp"))
+(load (concat (getenv "HOME") "/.stumpwm.d/util/memory.lisp"))
+(load (concat (getenv "HOME") "/.stumpwm.d/util/battery.lisp"))
 
 (setf *time-modeline-string* "%a %b %e %l:%M %p"
       *mode-line-pad-y* 4
