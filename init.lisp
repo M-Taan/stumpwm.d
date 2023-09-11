@@ -7,7 +7,6 @@
 (setf *ignore-wm-inc-hints* t)
 
 ;;; Groups
-
 ;; The goal is to always find what I'm looking for
 ;; The flow will work as follows:
 ;; Group 1 (Tiling) Browser
@@ -55,7 +54,7 @@
 (define-key *top-map* (kbd "XF86MonBrightnessUp") "exec light -A 10")
 (define-key *top-map* (kbd "XF86MonBrightnessDown") "exec light -U 10")
 (define-key *top-map* (kbd "Print") "exec screenshot")
-
+(define-key *top-map* (kbd "C-M-Delete") "exec betterlockscreen --lock")
 
 ;; undefine keys
 (undefine-key *root-map* (kbd "C-e"))
@@ -74,3 +73,11 @@
   (enable-mode-line (current-screen) head t *screen-mode-line-format*))
 
 (set-font "-*-terminal-medium-r-*-*-*-*-*-*-*-iso8859-*")
+
+(defun float-emulator (window)
+  (when (cl-ppcre:scan "^Emulator$" (window-title window))
+    (focus-window window)
+    (float-this)))
+
+(when *initializing*
+  (add-hook *new-window-hook* (lambda (window) (float-emulator window))))
