@@ -88,7 +88,7 @@
 (set-font "-*-terminal-medium-r-*-*-*-*-*-*-*-iso8859-*")
 
 (defun float-emulator (window)
-  (when (cl-ppcre:scan "^Emulator$" (window-title window))
+  (when (title-re-p window "^Emulator$")
     (focus-window window)
     (float-this)))
 
