@@ -34,9 +34,22 @@
 (defcommand firefox () ()
             (run-or-raise "firefox" '(:class "firefox")))
 
+(defcommand slack () ()
+            (run-or-raise "slack" '(:class "Slack")))
+
+(define-frame-preference "[EMACS]"
+    (0 t t :class "Emacs"))
+
+(define-frame-preference "[BROWSER]"
+    (0 t t :class "firefox"))
+
+(define-frame-preference "[SLACK]"
+    (0 t t :class "Slack"))
+
 (setf *applications-keymap*
       (let ((m (make-sparse-keymap)))
         (define-key m (kbd "b") "firefox")
+        (define-key m (kbd "s") "slack")
         (define-key m (kbd "a") "exec pavucontrol")
         m))
 
