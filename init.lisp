@@ -4,7 +4,8 @@
 (set-prefix-key (kbd "C-z"))
 (setf *startup-message* nil)
 ;; Mainly due to emacs's resize hints
-(setf *ignore-wm-inc-hints* t)
+(setf *ignore-wm-inc-hints* t
+      *mouse-focus-policy* :click)
 
 ;;; Groups
 ;; The goal is to always find what I'm looking for
@@ -94,3 +95,20 @@
 
 (when *initializing*
   (add-hook *new-window-hook* (lambda (window) (float-emulator window))))
+
+(defun flatten-group (group)
+  (dolist (window (group-windows group))
+    (when (typep window 'float-window)
+      (unfloat-window window group))))
+
+(defun flatten-groups ()
+  (dolist (group (screen-groups (current-screen)))
+    (flatten-group group)))
+
+(defun connect-to-home-screen ()
+  (flatten-groups)
+  (run-shell-command "connect-to-home-screen"))
+
+(defun disconnect-screen ()
+  (flatten-groups)
+  (run-shell-command "xrandr --output eDP 2560x1600 --rate 120 --primary"))
