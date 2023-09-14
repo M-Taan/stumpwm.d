@@ -52,6 +52,7 @@
         (define-key m (kbd "b") "firefox")
         (define-key m (kbd "s") "slack")
         (define-key m (kbd "a") "exec pavucontrol")
+        (define-key m (kbd "r") "exec rofi -show drun")
         m))
 
 (define-key *root-map* (kbd "a") '*applications-keymap*)
@@ -82,7 +83,7 @@
       *mode-line-pad-y* 4
       *mode-line-timeout* 2
       *screen-mode-line-format* (list "%g" "^>" "%M" " | "  "%B"  " | " "%d"))
-
+{
 (dolist (head (screen-heads (current-screen)))
   (enable-mode-line (current-screen) head t *screen-mode-line-format*))
 
@@ -112,3 +113,14 @@
 (defun disconnect-screen ()
   (flatten-groups)
   (run-shell-command "xrandr --output eDP 2560x1600 --rate 120 --primary"))
+
+(defcommand hsplit-focus () ()
+            (hsplit)
+            (fnext))
+
+(defcommand vsplit-focus () ()
+            (vsplit)
+            (fnext))
+
+(define-key *root-map* (kbd "S") "hsplit-focus")
+(define-key *root-map* (kbd "s") "vsplit-focus")
