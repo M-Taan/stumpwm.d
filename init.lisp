@@ -102,17 +102,17 @@
     (when (typep window 'float-window)
       (unfloat-window window group))))
 
-(defun flatten-groups ()
-  (dolist (group (screen-groups (current-screen)))
-    (flatten-group group)))
+(defcommand flatten-groups () ()
+            (dolist (group (screen-groups (current-screen)))
+              (flatten-group group)))
 
-(defun connect-to-home-screen ()
-  (flatten-groups)
-  (run-shell-command "connect-to-home-screen"))
+(defcommand connect-to-home-screen () ()
+            (flatten-groups)
+            (run-shell-command "connect-to-home-screen"))
 
-(defun disconnect-screen ()
-  (flatten-groups)
-  (run-shell-command "xrandr --output eDP 2560x1600 --rate 120 --primary"))
+(defcommand disconnect-screen () ()
+            (flatten-groups)
+            (run-shell-command "xrandr --output eDP --mode 2560x1600 --rate 120 --primary"))
 
 (defcommand hsplit-focus () ()
             (hsplit)
