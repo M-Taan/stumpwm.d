@@ -83,7 +83,7 @@
       *mode-line-pad-y* 4
       *mode-line-timeout* 2
       *screen-mode-line-format* (list "%g" "^>" "%M" " | "  "%B"  " | " "%d"))
-{
+
 (dolist (head (screen-heads (current-screen)))
   (enable-mode-line (current-screen) head t *screen-mode-line-format*))
 
