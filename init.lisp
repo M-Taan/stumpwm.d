@@ -1,6 +1,7 @@
 (in-package :stumpwm)
 
 ;;; Defaults
+(setf *default-package* :stumpwm)
 (set-prefix-key (kbd "C-z"))
 (setf *startup-message* nil)
 ;; Mainly due to emacs's resize hints
@@ -108,11 +109,17 @@
 
 (defcommand connect-to-home-screen () ()
             (flatten-groups)
-            (run-shell-command "connect-to-home-screen"))
+            (run-shell-command "connect-home-screen")
+            (run-shell-command "nitrogen --restore"))
 
 (defcommand disconnect-screen () ()
             (flatten-groups)
-            (run-shell-command "xrandr --output eDP --mode 2560x1600 --rate 120 --primary"))
+            (run-shell-command "xrandr --auto --output eDP --mode 2560x1600 --rate 120 --primary"))
+
+(defcommand connect-to-office-screen () ()
+            (flatten-groups)
+            (run-shell-command "xrandr --output eDP --mode 2560x1600 --rate 120 --output HDMI-A-0 --mode 1920x1080 --primary --right-of eDP")
+            (run-shell-command "nitrogen --restore"))
 
 (defcommand hsplit-focus () ()
             (hsplit)
