@@ -23,7 +23,7 @@
 (gnewbg "[SLACK]")
 
 ;;; Startup
-(run-shell-command "/usr/local/bin/emacs --daemon")
+(run-shell-command "/bin/emacs --daemon")
 (run-shell-command "nitrogen --restore")
 (run-shell-command "dunst")
 
