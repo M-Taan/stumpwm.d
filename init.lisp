@@ -2,7 +2,7 @@
 
 ;;; Defaults
 (setf *default-package* :stumpwm)
-(set-prefix-key (kbd "C-z"))
+(set-prefix-key (kbd "C-;"))
 (setf *startup-message* nil)
 ;; Mainly due to emacs's resize hints
 (setf *ignore-wm-inc-hints* t
@@ -31,7 +31,7 @@
 ;; Window classes are set by Xorg, you can get the window class through: (window-class window)
 ;; or through xorg's: xprop WM_CLASS
 (defcommand emacsclient () ()
-            (run-or-raise "emacsclient -c" '(:class "Emacs")))
+            (run-or-raise "emacsclient -q -c" '(:class "Emacs")))
 
 (defcommand firefox () ()
             (run-or-raise "firefox" '(:class "firefox")))
@@ -59,6 +59,7 @@
 (define-key *root-map* (kbd "a") '*applications-keymap*)
 (define-key *root-map* (kbd "e") "emacsclient")
 (define-key *root-map* (kbd "c") "exec alacritty")
+(define-key *root-map* (kbd "'") "colon")
 
 ;; Top level mappings
 (define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec amixer -D pulse sset Master 5%+")
@@ -75,6 +76,12 @@
 ;; undefine keys
 (undefine-key *root-map* (kbd "C-e"))
 (undefine-key *root-map* (kbd "C-c"))
+
+(define-key *groups-map* (kbd "a") "gselect 1")
+(define-key *groups-map* (kbd "s") "gselect 2")
+(define-key *groups-map* (kbd "d") "gselect 3")
+(define-key *groups-map* (kbd "f") "gselect 4")
+(define-key *groups-map* (kbd "g") "gselect 5")
 
 ;;; Modeline
 (load (concat (getenv "HOME") "/.stumpwm.d/util/memory.lisp"))
@@ -131,3 +138,5 @@
 
 (define-key *root-map* (kbd "S") "hsplit-focus")
 (define-key *root-map* (kbd "s") "vsplit-focus")
+
+(reload)
