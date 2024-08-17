@@ -11,15 +11,16 @@
 ;;; Groups
 ;; The goal is to always find what I'm looking for
 ;; The flow will work as follows:
-;; Group 1 (Tiling) Browser
-;; Group 2 (Tiling) Emacs
+;; Group 1 (Tiling) Nvim
+;; Group 2 (Tiling) Browser
 ;; Group 3 (Tiling) Terminal
 ;; Group 4 (Tiling) will be empty by default, it's mainly for misc apps
-;; Group 5 (Tiling) Slack
-(grename "[EMACS]")
+;; Group 7 (Tiling) Slack
+(grename "[NVIM]")
 (gnewbg "[BROWSER]")
 (gnewbg "[TERM]")
 (gnewbg "[MISC]")
+(gnewbg "[ORG]")
 (gnewbg "[SLACK]")
 
 ;;; Startup
@@ -39,7 +40,10 @@
 (defcommand slack () ()
             (run-or-raise "slack" '(:class "Slack")))
 
-(define-frame-preference "[EMACS]"
+(defcommand gimp () ()
+            (run-or-raise "gimp" '(:class "Gimp")))
+
+(define-frame-preference "[ORG]"
     (0 t t :class "Emacs"))
 
 (define-frame-preference "[BROWSER]"
@@ -48,9 +52,13 @@
 (define-frame-preference "[SLACK]"
     (0 t t :class "Slack"))
 
+(define-frame-preference "[GIMP]"
+    (0 t t :class "Gimp"))
+
 (setf *applications-keymap*
       (let ((m (make-sparse-keymap)))
         (define-key m (kbd "b") "firefox")
+        (define-key m (kbd "g") "gimp")
         (define-key m (kbd "s") "slack")
         (define-key m (kbd "a") "exec pavucontrol")
         (define-key m (kbd "r") "exec rofi -show drun")
@@ -82,6 +90,7 @@
 (define-key *groups-map* (kbd "d") "gselect 3")
 (define-key *groups-map* (kbd "f") "gselect 4")
 (define-key *groups-map* (kbd "g") "gselect 5")
+(define-key *groups-map* (kbd "h") "gselect 6")
 
 ;;; Modeline
 (load (concat (getenv "HOME") "/.stumpwm.d/util/memory.lisp"))
